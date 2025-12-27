@@ -87,3 +87,57 @@ This is the backend of a **Blog Application** built with **Node.js**, **Express*
 1. Clone the repository:
 ```bash
 git clone <repository-url>
+
+2.Install dependencies:
+npm install
+
+3.Configure environment variables:
+DATABASE_URL="postgresql://user:password@localhost:5432/blogdb"
+JWT_SECRET="your_jwt_secret"
+
+4.Run Prisma migrations:
+npx prisma migrate dev
+
+5.Start the server:
+npm run dev
+
+
+Folder Structure
+├── src
+│   ├── controllers
+│   ├── routes
+│   ├── models
+│   ├── middleware
+│   ├── utils
+│   └── index.ts
+├── prisma
+│   ├── schema.prisma
+│   └── migrations
+├── package.json
+└── README.md
+
+
+API Endpoints
+Auth
+
+POST /auth/register - Register a user
+
+POST /auth/login - Login a user
+
+Posts
+
+GET /posts - Get all posts
+
+POST /posts - Create post (Admin/User)
+
+PUT /posts/:id - Update post (Admin/User)
+
+DELETE /posts/:id - Delete post (Admin/User)
+
+Comments
+
+POST /comments - Add comment
+
+PUT /comments/:id - Approve/Reject comment (Admin)
+
+DELETE /comments/:id - Delete comment
