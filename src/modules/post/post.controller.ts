@@ -76,8 +76,47 @@ const getPostById = async (req: Request, res: Response) => {
     }
 }
 
+const getMyPosts = async (req: Request, res: Response) => {
+    try {
+        const user = req.user
+        if (!user) {
+            throw new Error ("you are trying to access from unauthorized ")
+        }
+        console.log("user data", user)
+        const result = await postService.getMyPosts(user.id);
+        res.status(200).json(result)
+    } catch (e) {
+        res.status(400).json({
+            error: "failed to retrieve your post",
+            details:e
+        })
+        
+    }
+}
+
+
+const updatePost = async (req: Request, res: Response) => {
+    try {
+        const user = req.user;
+        if (!user) {
+            throw new Error("you are not authorized")
+        }
+        const { postId } = req.params;
+        const result = await postService.updatePost(postId as string, req.body, user.id);
+        res.status(200).json(result)
+        
+    } catch (e) {
+        res.status(400).json({
+            error: "failed to edit your post",
+            details:e
+        })
+    }
+}
+
 export const PostController = {
     createPost,
     getAllPost,
-    getPostById
+    getPostById,
+    getMyPosts,
+    updatePost
 }
