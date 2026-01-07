@@ -5,6 +5,13 @@ import auth, { UserRole } from '../../middleware/auth';
 const router = express.Router();
 
 router.get(
+    "/stats",
+    auth(UserRole.ADMIN),
+    PostController.getStats
+
+)
+
+router.get(
     "/",
     PostController.getAllPost
 )
